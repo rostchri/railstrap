@@ -277,7 +277,7 @@ function app(x) {
   this.countDependent=[999,0];
   this.name = x;
   this.loaded = false;
-  extrasPath = rootDir + "Kickstrap/apps/";
+  extrasPath = rootDir + "assets/Kickstrap/apps/";
   this.configPath = extrasPath + x + '/config.ks';
   // Override if user wants CDN-hosted config.ks files.
   if (x.substring(0, 5) == "http:" || x.substring(0,6) == "https:") {
