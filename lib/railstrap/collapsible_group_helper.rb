@@ -65,7 +65,7 @@ module CollapsibleGroupHelper
   end
   
   class Item < UniversalBlockItem
-    attr_accessor :title, :group, :body, :show, :ajaxurl, :url
+    attr_accessor :title, :group, :body, :show, :ajaxurl, :url, :subtitle
     
     def initialize(options={},&block)
       # default options
@@ -74,6 +74,7 @@ module CollapsibleGroupHelper
       # set some instance-variables according to option-values
       set :group    => options.delete(:group),
           :title    => options.delete(:title),
+          :subtitle => options.delete(:subtitle),
           :body     => options.delete(:body),
           :ajaxurl  => options.delete(:ajaxurl),
           :url      => options.delete(:url)
@@ -81,6 +82,15 @@ module CollapsibleGroupHelper
     end
             
     def render_haml
+      
+      headcontent = viewcontext.capture_haml do
+        viewcontext.haml_concat title 
+        viewcontext.haml_tag :span, :class => ["help-inline", "floatright"] do
+          viewcontext.haml_concat subtitle 
+        end unless subtitle.nil? || subtitle.empty?
+      end
+      
+      
       # head
       content = viewcontext.capture_haml do
         viewcontext.haml_tag :div, :class => 'accordion-heading' do
@@ -90,7 +100,7 @@ module CollapsibleGroupHelper
           labelopts[:class] << (options[:show] || group.options[:show] ? 'icon-chevron-down' : 'icon-chevron-right') if group.options[:icons]
           viewcontext.haml_tag :i, labelopts do
           end
-          headcontent = title
+          
           linktarget  = ajaxurl.nil? ? "#" : ajaxurl
           linktarget  = url unless url.nil?
           opts.merge!({:remote => true}) unless ajaxurl.nil? 
