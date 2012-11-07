@@ -1,0 +1,17 @@
+.navbar-search input.search-query {
+  border: 1px solid transparent;
+  margin-right: 5px;
+	color: black;
+  &:hover, &:focus, &.focused {
+    background-color: white;
+    color: black;
+  }
+}
+
+.navbar-search .input-prepend {
+  white-space: nowrap;
+}
+
+.navbar-search .input-prepend .add-on, .navbar-search .input-append .add-on {
+  border: 1px solid transparent;
+}
