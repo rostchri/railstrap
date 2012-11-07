@@ -1,5 +1,45 @@
 module ButtonHelper
   
+  # Example: 
+  # = nav_bar :brand => "Filmdatenbank", :responsive => false, :fluid => true do
+  #     = menu_group :pull => :right do
+  #       = navsearchfield params[:by_plot].nil?  ? "Inhaltsuche" : params[:by_plot],  {:id => "plotsearch"}, "by_plot"
+	#
+	# or
+	#
+  # %div{:class=>'navbar'}
+  #    %ul{:class=>'nav pull-right'}
+  #       = navsearchfield params[:by_name].nil?  ? "Spielersuche" : params[:by_name],  {:id => "playersearch"}, "by_name"
+  
+  # for autocompletion use the following javascript:
+  # $(document).ready(function() {
+  #   return $('#playersearch').typeahead({
+  #     source: function(typeahead, query) {
+  #       var _this = this;
+  #       if (query.length >= 2) return $.ajax({
+  #         url: "/ajax/autocomplete/playersearch/" + query,
+  #         success: function(data) {
+  #           return typeahead.process(data);
+  #         }
+  #       });
+  #     },
+  #     property: "name"
+  #   });
+  # });
+  
+  # or coffeescript:
+  # $(document).ready ->
+  #   $("#playersearch").typeahead
+  #     source: (typeahead, query) ->
+  #       _this = this
+  #       if query.length >= 2
+  #         $.ajax
+  #           url: "/ajax/autocomplete/playersearch/" + query
+  #           success: (data) ->
+  #             typeahead.process data
+  #     property: "givenname"
+  
+	
   def navsearchfield(searchstring,options,inputname)
     capture_haml do
       haml_tag :li do
