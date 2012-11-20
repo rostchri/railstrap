@@ -65,7 +65,7 @@ module CollapsibleGroupHelper
   end
   
   class Item < UniversalBlockItem
-    attr_accessor :title, :group, :body, :show, :ajaxurl, :url
+    attr_accessor :title, :group, :body, :show, :ajaxurl, :url, :subtitle
     
     def initialize(options={},&block)
       # default options
@@ -74,6 +74,7 @@ module CollapsibleGroupHelper
       # set some instance-variables according to option-values
       set :group    => options.delete(:group),
           :title    => options.delete(:title),
+          :subtitle => options.delete(:subtitle),
           :body     => options.delete(:body),
           :ajaxurl  => options.delete(:ajaxurl),
           :url      => options.delete(:url)
@@ -81,16 +82,24 @@ module CollapsibleGroupHelper
     end
             
     def render_haml
+      
+      headcontent = viewcontext.capture_haml do
+        labelopts = {:id => "label-collapsible_item-#{id}", :class => ['collapsable-label', 'icon-black']} 
+        labelopts[:class] << (options[:show] || group.options[:show] ? 'icon-chevron-down' : 'icon-chevron-right') if group.options[:icons]
+        viewcontext.haml_tag :i, labelopts do
+        end
+        viewcontext.haml_concat title 
+        viewcontext.haml_tag :span, :class => ["help-inline", "floatright"] do
+          viewcontext.haml_concat subtitle 
+        end unless subtitle.nil? || subtitle.empty?
+      end
+      
+      
       # head
       content = viewcontext.capture_haml do
         viewcontext.haml_tag :div, :class => 'accordion-heading' do
           opts = {:'data-toggle' => "collapse", :'data-target' => "#collapsible_item-#{id}"}
           opts.merge!({:'data-parent' => "#collapsible_group-#{group.id}"}) if group.options[:connected]
-          labelopts = {:id => "label-collapsible_item-#{id}", :class => ['collapsable-label', 'icon-black']} 
-          labelopts[:class] << (options[:show] || group.options[:show] ? 'icon-chevron-down' : 'icon-chevron-right') if group.options[:icons]
-          viewcontext.haml_tag :i, labelopts do
-          end
-          headcontent = title
           linktarget  = ajaxurl.nil? ? "#" : ajaxurl
           linktarget  = url unless url.nil?
           opts.merge!({:remote => true}) unless ajaxurl.nil? 
