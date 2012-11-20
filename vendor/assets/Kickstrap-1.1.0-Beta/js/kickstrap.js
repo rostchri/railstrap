@@ -254,7 +254,7 @@ function cssIfy(filePath) { // Global so ks-window pages can use this.
   linkElement.setAttribute("rel", "stylesheet");
   linkElement.setAttribute("type", "text/css");
   linkElement.setAttribute("href", filePath);
-  document.getElementsByTagName('body')[0].appendChild(linkElement);
+  //document.getElementsByTagName('body')[0].appendChild(linkElement);
 }
 
 /*
