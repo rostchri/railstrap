@@ -4,6 +4,7 @@ require 'railstrap/button_helper'
 require 'railstrap/modal_helper'
 require 'railstrap/collapsible_group_helper'
 require 'railstrap/navbar_helper'
+require 'railstrap/button_group_helper'
 require 'railstrap/action_controller'
 require 'railstrap/railtie'
 
