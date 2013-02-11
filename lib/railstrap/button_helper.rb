@@ -1,13 +1,14 @@
 module ButtonHelper
   
   # render icon or image
-  def railstrap_image(image,text=nil)
+  def railstrap_image(image,text=nil,options={})
     capture_haml do
       unless image.nil?
         if image =~ /icon-/
           haml_tag :i, {:class => image}.merge(text.nil? ? {} : {:style => "margin: 0px"})
         else
-          haml_concat image_tag(image, :style => "margin-bottom: -4px")
+          options.reverse_merge! :style => "margin-bottom: -4px"
+          haml_concat image_tag(image, options)
         end
       end
       haml_concat text unless text.nil?
