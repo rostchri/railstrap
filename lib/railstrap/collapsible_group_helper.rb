@@ -98,9 +98,10 @@ module CollapsibleGroupHelper
       # head
       content = viewcontext.capture_haml do
         viewcontext.haml_tag :div, :class => 'accordion-heading' do
+          #opts = {:id => id, :'data-toggle' => "collapse", :'data-target' => "#collapsible_item-#{id}"}
           opts = {:'data-toggle' => "collapse", :'data-target' => "#collapsible_item-#{id}"}
           opts.merge!({:'data-parent' => "#collapsible_group-#{group.id}"}) if group.options[:connected]
-          linktarget  = ajaxurl.nil? ? "#" : ajaxurl
+          linktarget  = ajaxurl.nil? ? "##{id}" : ajaxurl
           linktarget  = url unless url.nil?
           opts.merge!({:remote => true}) unless ajaxurl.nil? 
           viewcontext.haml_concat viewcontext.link_to headcontent, linktarget, opts
