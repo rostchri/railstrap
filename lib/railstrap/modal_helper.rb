@@ -35,13 +35,13 @@ module ModalHelper
             viewcontext.haml_tag "h3" do
               viewcontext.haml_concat title
             end
-            viewcontext.haml_tag :div, :class => "modal-body" do
-              viewcontext.haml_concat body
-            end
-            viewcontext.haml_tag :div, :class => "modal-footer" do
-              viewcontext.haml_concat footer
-            end unless footer.nil?
           end
+          viewcontext.haml_tag :div, :class => "modal-body" do
+            viewcontext.haml_concat body
+          end
+          viewcontext.haml_tag :div, :class => "modal-footer" do
+            viewcontext.haml_concat footer
+          end unless footer.nil?
         end
       end
     end
